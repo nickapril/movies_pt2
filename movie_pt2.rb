@@ -72,10 +72,10 @@ class MovieData
   # returns the list of most popular movies in descending order
   def popularity_list()
     pop_hash = Hash.new
-    @rating_hash.each do |id, rating|
+    @rating_hash.each do |id|
       pop_hash[id] = popularity(id)
     end
-    pop_hash = Hash[pop_hash.sort_by{|k, v| v}.reverse]
+    pop_hash = Hash[pop_hash.sort_by{|_or_k, v| v}.reverse]
     pop_hash.keys
   end
 
@@ -222,7 +222,7 @@ class MovieTest
   end
 end
 
-z = MovieData.new("ml-100k/u1.test")
+z = MovieData.new("ml-100k/u1.base")
 #
 # puts "Top 10 popular movie_id are:"
 # puts z.popularity_list[0..9]
@@ -233,11 +233,15 @@ z = MovieData.new("ml-100k/u1.test")
 puts ""
 puts Time.now
 puts ""
-t = z.test_run(2000)
-puts "mean: #{t.mean}"
-puts "std: #{t.standard_dev}"
-puts "rms: #{t.rms}"
+t = z.test_run(800)
+puts "mean prediction error: #{t.mean}"
+puts "std of the error: #{t.standard_dev}"
+puts "rms error of the prediction: #{t.rms}"
 # puts "to_a: #{t.to_a}"
 puts ""
 puts Time.now
 puts ""
+
+# 8000/58 = 137
+# 4000/23 = 173
+# 800/5 = 160
