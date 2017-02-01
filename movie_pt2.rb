@@ -64,7 +64,7 @@ class MovieData
     end
 
     average = total / number
-    popularity = average * number
+    return average * number
 
   end
 
@@ -82,7 +82,6 @@ class MovieData
   # similarity between two users is calculated by summing the average rating for all common movies
   def similarity(user1, user2)
     count = 0.0
-    similarity = 0.0
     total_average_ratings = 0.0 #HERE
 
     @user_hash[user1].each do |mov, rat|
@@ -96,7 +95,7 @@ class MovieData
     if count == 0.0
       return 0.0
     else
-      similarity = total_average_ratings / count
+      return total_average_ratings / count
     end
   end
 
@@ -112,7 +111,7 @@ class MovieData
       end
     end
 
-    most_sim = Hash[most_sim.sort_by{|k, v| v}.reverse]
+    most_sim = Hash[most_sim.sort_by{|_or_k, v| v}.reverse]
     most_sim.keys
   end
 
@@ -191,11 +190,10 @@ class MovieTest
   # returns the average predication error
   def mean()
     er = 0
-    mean = 0
     @final_list.each do |data|
       er += (data[2].to_f - data[3].to_f).abs
     end
-    mean = er / @final_list.length
+    return er / @final_list.length
   end
 
   # returns standard deviation of the error
@@ -212,11 +210,10 @@ class MovieTest
   # returns the root mean square error of the prediction
   def rms()
     sum_diff = 0
-    rms = 0
     @final_list.each do |d|
       sum_diff += (d[3].to_f - d[2].to_f)**2
     end
-    rms = Math.sqrt(sum_diff / @final_list.length)
+    return Math.sqrt(sum_diff / @final_list.length)
   end
 
   # returns an array of the predictions in the form [u,m,r,p].
