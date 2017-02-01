@@ -204,7 +204,7 @@ class MovieTest
       er = (d[2].to_f - d[3].to_f).abs
       sum += (er - average)**2
     end
-    std = Math.sqrt(sum / (@final_list.length - 1))
+    return Math.sqrt(sum / (@final_list.length - 1))
   end
 
   # returns the root mean square error of the prediction
